@@ -1,0 +1,13 @@
+pandas
+numpy
+langchain_community
+sentence_transformers
+dotenv
+pypdf
+faiss-cpu
+tensorflow
+joblib
+google-generativeai
+nest_asyncio
+opencv-python
+python-telegram-botcd

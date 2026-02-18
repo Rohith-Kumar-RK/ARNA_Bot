@@ -35,7 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\CICD\CICD"
+VIRTUAL_ENV="C:\ARNA\CICD"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
