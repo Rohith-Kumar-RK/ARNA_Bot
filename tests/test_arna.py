@@ -1,4 +1,4 @@
-from ui_telegram import main
+from src.ui_telegram import main
 import threading
 threading.Thread(target=main).start()
-main()
+main() 

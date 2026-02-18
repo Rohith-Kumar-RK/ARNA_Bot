@@ -1,16 +1,16 @@
 import asyncio
 import nest_asyncio
-from disease_identification import predict_disease
-from fertilizer_recomendation import recommend_fertilizer
-from Rag import gemini_response
+from src.disease_identification import predict_disease
+from src.fertilizer_recomendation import recommend_fertilizer
+from src.Rag import gemini_response
 from telegram import Update
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
 
 
 nest_asyncio.apply()
 
 async def start(update: Update, context: CallbackContext):
-    await update.message.reply_text("🌱 Welcome to ARNA Bot! Send text for AI assistance or an image for disease prediction.")
+    await update.message.reply_text(" Welcome to ARNA Bot! Send text for AI assistance or an image for disease prediction.")
 async def handle_text(update: Update, context: CallbackContext):
     user_input = update.message.text
     response = gemini_response(user_input)
