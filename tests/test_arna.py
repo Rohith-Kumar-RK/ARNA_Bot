@@ -1,4 +1,5 @@
 from src.ui_telegram import main
 import threading
-threading.Thread(target=main).start()
-main() 
+def test_arna_1():
+    threading.Thread(target=main).start()
+    main() 
