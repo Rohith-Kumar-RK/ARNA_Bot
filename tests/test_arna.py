@@ -1,5 +1,5 @@
 from src.ui_telegram import main
 import threading
-def test_arna_1():
+def test_main():
     threading.Thread(target=main).start()
-    main() 
+    assert main() 
