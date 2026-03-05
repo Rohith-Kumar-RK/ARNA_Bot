@@ -31,5 +31,8 @@ jobs:
           pip install pytest -r requirements.txt
       # Step 4: Run tests
       - name: Run tests
+        env:
+            BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+            API_TOKEN: ${{secrets.API_TOKEN}}
         run: pytest
     

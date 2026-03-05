@@ -3,11 +3,11 @@ import joblib
 import json
 import random
 # Load Fertilizer Recommendation Model
-fertilizer_model = joblib.load("Models/Recomendation_chatbot_model.pkl")
+fertilizer_model = joblib.load(r"Models/Recomendation_chatbot_model.pkl")
 with open('Dataset/Fartillizer_recom.json', 'r') as f:
     intents = json.load(f)
 # Load Tokenizer
-with open("Models/recomendation_vectorizer.pkl", "rb") as f:
+with open(r"Models/recomendation_vectorizer.pkl", "rb") as f:
     tokenizer = pickle.load(f)
 
 def recommend_fertilizer(disease):

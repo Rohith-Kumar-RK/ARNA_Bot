@@ -1,7 +1,7 @@
 import google.generativeai as genai
 
 # Set up Gemini AI
-genai.configure(api_key="AIzaSyBcsDn9QIuBZCUgoc5KslegvSEJLftAb2M")
+genai.configure(api_key="API_TOKEN")
 
 
 def gemini_response(text):

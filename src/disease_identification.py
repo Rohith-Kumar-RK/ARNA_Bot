@@ -8,12 +8,12 @@ import os
 
 # Load Disease Detection Model
 try:
-  if os.path.exists("C:\ARNA\Models\best_model.h5"):
+  if os.path.exists(r"C:\ARNA\Models\best_model.h5"):
     print("folder findout")
     disease_model = tf.keras.models.load_model("Models/best_model.keras")
   else:
     print("Keras model not found")
-  if os.path.exists(".. Models/identify_CNN.keras"):
+  if os.path.exists(r".. Models/identify_CNN.keras"):
     identify_model = tf.keras.models.load_model("Models/identify_CNN.keras")
   else:
     print("keras model not found")
