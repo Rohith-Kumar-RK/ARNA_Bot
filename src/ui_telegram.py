@@ -5,7 +5,7 @@ from src.fertilizer_recomendation import recommend_fertilizer
 from src.Rag import gemini_response
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
-
+import os
 
 nest_asyncio.apply()
 
@@ -36,12 +36,14 @@ async def handle_image(update: Update, context: CallbackContext):
     await update.message.reply_text(response_text)
 def main():
     bot_token = "7748979623:AAHeKXrfhNXAfr6Xjzn7gvpDsqM26FbZn3Q"
+    BOT_TOKEN = os.getenv(bot_token)
     app = Application.builder().token(bot_token).build()
-
+    
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
     app.add_handler(MessageHandler(filters.PHOTO, handle_image))
 
     print("Bot is running...")
+
     app.run_polling()
 # Run the bot in the background

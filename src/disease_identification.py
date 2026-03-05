@@ -3,11 +3,22 @@ import cv2
 import numpy as np
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 from tensorflow.keras.applications import EfficientNetB3
+import os
 
 
 # Load Disease Detection Model
-disease_model = tf.keras.models.load_model("Models/best_model.keras")
-identify_model = tf.keras.models.load_model("Models/identify_CNN.keras")
+try:
+  if os.path.exists("C:\ARNA\Models\best_model.h5"):
+    print("folder findout")
+    disease_model = tf.keras.models.load_model("Models/best_model.keras")
+  else:
+    print("Keras model not found")
+  if os.path.exists(".. Models/identify_CNN.keras"):
+    identify_model = tf.keras.models.load_model("Models/identify_CNN.keras")
+  else:
+    print("keras model not found")
+except Exception as e:
+  print("model not found",e)
 def load_and_preprocess_image(img_path, target_size=(300, 300)):
     img = load_img(img_path, target_size=target_size)
     img_array = img_to_array(img)
