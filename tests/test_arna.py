@@ -5,4 +5,7 @@
 #     assert main() f
 import tensorflow as tf
 
-disease_model = tf.keras.models.load_model("Models/best_model.keras")
+
+def test_model_loading():
+    model = tf.keras.models.load_model("Models/best_model.keras")
+    assert model is not None
