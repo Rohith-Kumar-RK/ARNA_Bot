@@ -1,7 +1,5 @@
-from src.ui_telegram import main
-import threading
-
-
+from src.ui_telegram import create_app
 def test_model_loading():
-    threading.Thread(target=main).start()
-    assert main() 
+    app = create_app()
+
+    assert app is not None 

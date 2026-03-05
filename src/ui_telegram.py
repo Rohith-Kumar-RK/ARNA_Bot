@@ -34,16 +34,20 @@ async def handle_image(update: Update, context: CallbackContext):
     else:
       response_text = f"🌾 Disease Detected: {predicted_disease} \n🧴 Recommended Fertilizer: {recommended_fertilizer}"
     await update.message.reply_text(response_text)
-def main():
-    bot_token = "7748979623:AAHeKXrfhNXAfr6Xjzn7gvpDsqM26FbZn3Q"
-    BOT_TOKEN = os.getenv(bot_token)
-    app = Application.builder().token(bot_token).build()
-    
+def create_app():
+
+    BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+    app = Application.builder().token(BOT_TOKEN).build()
+
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
     app.add_handler(MessageHandler(filters.PHOTO, handle_image))
 
+    return app
+def main():
+    app = create_app()
+    app.run_polling()
     print("Bot is running...")
 
-    app.run_polling()
 # Run the bot in the background
