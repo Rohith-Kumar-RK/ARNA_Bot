@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from Rag import FaissVectorStore ,load_all_documents
+from src.Rag import FaissVectorStore ,load_all_documents
 import os
 import google.generativeai as genai
 
@@ -10,14 +10,14 @@ genai.configure(api_key="API_TOKEN")
 load_dotenv()
 
 class RAGSearch:
-    def __init__(self, persist_dir: str = "../Rag/faiss_store", embedding_model: str = "all-MiniLM-L6-v2", llm_model: str = "gemma2-9b-it"):
+    def __init__(self, persist_dir: str = "../Dataset/Rag/faiss_store", embedding_model: str = "all-MiniLM-L6-v2", llm_model: str = "gemma2-9b-it"):
         self.vectorstore = FaissVectorStore(persist_dir, embedding_model)
         # Load or build vectorstore
         faiss_path = os.path.join(persist_dir, "faiss.index")
         meta_path = os.path.join(persist_dir, "metadata.pkl")
         if not (os.path.exists(faiss_path) and os.path.exists(meta_path)):
             # from data_loader import load_all_documents
-            docs = load_all_documents("../Rag/data")
+            docs = load_all_documents("../Dataset/Rag/data")
             self.vectorstore.build_from_documents(docs)
         else:
             self.vectorstore.load()
