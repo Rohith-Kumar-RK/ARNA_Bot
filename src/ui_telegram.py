@@ -2,7 +2,7 @@ import asyncio
 import nest_asyncio
 from src.disease_identification import predict_disease
 from src.fertilizer_recomendation import recommend_fertilizer
-from src.Rag import gemini_response
+from src.LLM import gemini_response
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
 import os
