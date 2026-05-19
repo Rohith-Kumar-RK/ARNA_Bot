@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from Backend.main import app
+from Backend.src.main import app
 
 client = TestClient(app)
 def test_prediction():
