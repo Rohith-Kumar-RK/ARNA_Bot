@@ -1,16 +1,19 @@
+from pathlib import Path
 import joblib
-import os
+
 def test_model_load():
+
+    model_path = Path(
+        "../Backend/src/Models/Recomendation_chatbot_model.pkl"
+    ).resolve()
+
+    print(f"[DEBUG] model path: {model_path}")
+
     try:
-        data_path=os.path("../Backend/src/Models/Recomendation_chatbot_model.pkl").resolve()
-        print(f"[DEBUG] model path: {data_path}")
-        model = joblib.load("../Backend/src/Models/Recomendation_chatbot_model.pkl")
+        model = joblib.load(model_path)
+
     except Exception as e:
-        print("exception raised",e) 
-    
-    # model = joblib.load("")
-    # model2 = joblib.load("../backend/src/Models/.pkl")
-    # model3 = joblib.load("../backend/src/Models/Recomendation_chatbot_model.pkl")
-    # model4 = joblib.load("../backend/src/Models/Recomendation_chatbot_model.pkl")
+        print("Exception raised:", e)
+        model = None
 
     assert model is not None

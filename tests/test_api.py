@@ -3,7 +3,7 @@ from Backend.src.main import app
 
 client = TestClient(app)
 def test_prediction():
-    with open("tests/image.jpg", "rb") as image:
+    with open("image.jpg", "rb") as image:
         response = client.post(
             "/analyze",
             files={
