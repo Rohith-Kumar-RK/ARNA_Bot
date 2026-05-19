@@ -2,7 +2,7 @@ import pickle
 import joblib
 import json
 import random
-import os
+# import os
 from pathlib import Path
 
 # Load Fertilizer Recommendation Model
