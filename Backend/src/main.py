@@ -111,14 +111,14 @@ def health():
 
 app.mount(
     "/static",
-    StaticFiles(directory=os.path.join(resourcePath("frontend"), "static")),
+    StaticFiles(directory=os.path.join(resourcePath("Backend/src/frontend"), "static")),
     name="static",
 )
 
 
 @app.get("/{path_name:path}")
 async def catch_all(path_name: str):
-    return FileResponse(os.path.join(resourcePath("frontend"), "index.html"))
+    return FileResponse(os.path.join(resourcePath("Backend/src/frontend"), "index.html"))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
