@@ -1,0 +1,16 @@
+pandas
+numpy
+pytest
+langchain_community
+sentence_transformers
+dotenv
+pypdf
+faiss-cpu
+tensorflow ==2.19.0
+joblib
+google-generativeai>=0.8.0
+fastapi
+uvicorn
+python-multipart
+Pillow
+# onnxruntime
