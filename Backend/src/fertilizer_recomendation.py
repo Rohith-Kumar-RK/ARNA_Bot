@@ -3,20 +3,23 @@ import joblib
 import json
 import random
 import os
+from pathlib import Path
+
 # Load Fertilizer Recommendation Model
 
 
 def recommend_fertilizer(disease):
+    BASE_DIR = Path(__file__).resolve().parent
+
+    MODEL_DIR = BASE_DIR / "Models"
+
+    fertilizer_model_path = MODEL_DIR / "Recomendation_chatbot_model.pkl"
+    tokenizer_path = MODEL_DIR / "recomendation_vectorizer.pkl"
     try:
-        if os.path.exists(r"Models/Recomendation_chatbot_model.pkl"):
-            fertilizer_model = joblib.load("Models/Recomendation_chatbot_model.pkl")
-        else:
-            print("model not found for fertilizer")
+        fertilizer_model = joblib.load(fertilizer_model_path)
         with open('Dataset/Fartillizer_recom.json', 'r') as f:
             intents = json.load(f)
-        # Load Tokenizer
-        with open(r"Models/recomendation_vectorizer.pkl", "rb") as f:
-            tokenizer = pickle.load(f)
+        tokenizer = pickle.load(tokenizer_path)
     except Exception as e:
         print("model not found",e)
     # Tokenize the disease index or name (modify based on tokenizer format)
