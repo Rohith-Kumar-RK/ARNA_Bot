@@ -1,6 +1,5 @@
 CICD 
 Backend/.env
-Frontend
 .pytest_cache
 *.pyc
 .ipynb_checkpoints/
