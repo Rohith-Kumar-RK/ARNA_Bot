@@ -1,8 +1,9 @@
 import tensorflow as tf
-# import cv2
+from pathlib import Path
+
 import numpy as np
 from tensorflow.keras.preprocessing.image import img_to_array
-import os
+# import osg
 import io
 from PIL import Image
 
@@ -26,18 +27,22 @@ def load_and_preprocess_image(image_bytes, target_size=(300, 300)):
     
     return img_array
 def predict_disease(image_path):
-  try:
-    if os.path.exists(r"Models/best_model.keras"):
-      print("folder findout")
-      disease_model = tf.keras.models.load_model("Models/best_model.keras")
-    else:
-      print("Keras model not found")
-    if os.path.exists(r"Models/identify_CNN.keras"):
-      identify_model = tf.keras.models.load_model("Models/identify_CNN.keras")
-    else:
-      print("keras model not found","*"*10)
-  except Exception as e:
-    print("model not found",e)
+  BASE_DIR = Path(__file__).resolve().parent
+
+  MODEL_DIR = BASE_DIR / "Models"
+
+  DISEASE_MODEL_PATH = MODEL_DIR / "best_model.keras"
+  IDENTIFY_MODEL_PATH = MODEL_DIR / "identify_CNN.keras"
+
+
+  # Load once globally
+  disease_model = tf.keras.models.load_model(
+      DISEASE_MODEL_PATH
+  )
+
+  identify_model = tf.keras.models.load_model(
+      IDENTIFY_MODEL_PATH
+  )
   img_array = load_and_preprocess_image(image_path)
   potato=identify_model.predict(img_array)
   confidence1 = float(np.max(potato)) 
