@@ -6,7 +6,7 @@ client = TestClient(app)
 
 def test_analyze():
 
-    image_path = Path("tests/image.jpg").resolve()
+    image_path = Path("tests/image.JPG").resolve()
 
     assert image_path.exists()
 
@@ -15,7 +15,7 @@ def test_analyze():
         response = client.post(
             "/analyze",
             files={
-                "file": ("image.jpg", image, "image/jpeg")
+                "file": ("image.JPG", image, "image/jpeg")
             }
         )
 
