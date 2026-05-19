@@ -2,12 +2,9 @@ import joblib
 import os
 def test_model_load():
     try:
-        if os.path.exists(r"../Backend/src/Models/Recomendation_chatbot_model.pkl"):
-            data_path=os.path("../Backend/src/Models/Recomendation_chatbot_model.pkl").resolve()
-            print(f"[DEBUG] model path: {data_path}")
-            model = joblib.load("../Backend/src/Models/Recomendation_chatbot_model.pkl")
-        else:
-            print("model not found for fertilizer")
+        data_path=os.path("../Backend/src/Models/Recomendation_chatbot_model.pkl").resolve()
+        print(f"[DEBUG] model path: {data_path}")
+        model = joblib.load("../Backend/src/Models/Recomendation_chatbot_model.pkl")
     except Exception as e:
         print("exception raised",e) 
     
