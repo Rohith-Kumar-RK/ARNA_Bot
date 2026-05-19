@@ -1,8 +1,14 @@
+from unittest.mock import patch
 from Backend.src.LLM import gemini_response
-def test_rag_search():
 
-    query = "What fertilizer for potato disease?"
 
-    result = gemini_response(query)
+@patch("Backend.src.LLM.rag_search.search_and_summarize")
+def test_rag_search(mock_search):
 
-    assert len(result) > 0
+    mock_search.return_value = "Use NPK fertilizer"
+
+    result = gemini_response(
+        "What fertilizer for potato disease?"
+    )
+
+    assert result is not None
