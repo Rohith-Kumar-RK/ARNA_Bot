@@ -2,15 +2,23 @@ import pickle
 import joblib
 import json
 import random
+import os
 # Load Fertilizer Recommendation Model
-fertilizer_model = joblib.load(r"Models/Recomendation_chatbot_model.pkl")
-with open('Dataset/Fartillizer_recom.json', 'r') as f:
-    intents = json.load(f)
-# Load Tokenizer
-with open(r"Models/recomendation_vectorizer.pkl", "rb") as f:
-    tokenizer = pickle.load(f)
+
 
 def recommend_fertilizer(disease):
+    try:
+        if os.path.exists(r"Models/Recomendation_chatbot_model.pkl"):
+            fertilizer_model = joblib.load("Models/Recomendation_chatbot_model.pkl")
+        else:
+            print("model not found for fertilizer")
+        with open('Dataset/Fartillizer_recom.json', 'r') as f:
+            intents = json.load(f)
+        # Load Tokenizer
+        with open(r"Models/recomendation_vectorizer.pkl", "rb") as f:
+            tokenizer = pickle.load(f)
+    except Exception as e:
+        print("model not found",e)
     # Tokenize the disease index or name (modify based on tokenizer format)
     if disease=="Normal":
       return "Your Crop is Healthy No Need Fertilizers"
