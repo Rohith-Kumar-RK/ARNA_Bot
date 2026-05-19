@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from Rag import FaissVectorStore, load_all_documents
+from Backend.src.Rag import FaissVectorStore, load_all_documents
 import os
 import google.generativeai as genai
 # Set up Gemini AI

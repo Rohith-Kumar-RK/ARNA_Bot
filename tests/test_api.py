@@ -9,7 +9,7 @@ def test_prediction():
     }
 
     response = client.post(
-        "/predict",
+        "/analyze",
         json=payload
     )
 

@@ -2,8 +2,8 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import base64
-from disease_identification import predict_disease
-from fertilizer_recomendation import recommend_fertilizer
+from Backend.src.disease_identification import predict_disease
+from Backend.src.fertilizer_recomendation import recommend_fertilizer
 import argparse
 import uvicorn
 from dotenv import load_dotenv
