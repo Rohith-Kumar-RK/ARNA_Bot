@@ -3,14 +3,13 @@ from Backend.src.main import app
 
 client = TestClient(app)
 def test_prediction():
-
-    payload = {
-        "text": "Potato leaf has black spots"
-    }
-
-    response = client.post(
-        "/analyze",
-        json=payload
-    )
+    with open("tests/image.jpg", "rb") as image:
+        response = client.post(
+            "/analyze",
+            files={
+                "file": ("image.jpg", image, "image/jpeg")
+            }
+        )
+    # print(response.json())
 
     assert response.status_code == 200
