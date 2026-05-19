@@ -2,6 +2,8 @@ from dotenv import load_dotenv
 from Backend.src.Rag import FaissVectorStore, load_all_documents
 import os
 import google.generativeai as genai
+import time
+from google.api_core.exceptions import InternalServerError
 # Set up Gemini AI
 
 
@@ -52,9 +54,25 @@ class RAGSearch:
         Answer briefly using only the context.
         If answer is unavailable, say:
         I don't know based on the provided context."""
-        response = self.llm.generate_content(prompt,generation_config={
-        "temperature": 0.1,
-        "max_output_tokens": 50, })
+        response = None
+
+        for attempt in range(3):
+            try:
+                response = self.llm.generate_content(
+                    prompt,
+                    generation_config={
+                        "max_output_tokens": 50,
+                        "temperature": 0.1
+                    }
+                )
+                break
+
+            except InternalServerError as e:
+                print(f"Gemini API Error: {e}")
+                time.sleep(5)
+
+        if response is None:
+            return "LLM service unavailable"
         return response
 
 
