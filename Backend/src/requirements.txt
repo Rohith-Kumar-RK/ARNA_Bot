@@ -14,3 +14,4 @@ uvicorn
 python-multipart
 Pillow
 onnxruntime
+opencv-python-headless
