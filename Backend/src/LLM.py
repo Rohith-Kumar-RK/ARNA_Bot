@@ -86,10 +86,4 @@ def gemini_response(text):
     print(summary)
     # print("the text of the summar :",summary.text.strip())
     print("result")
-    # print("[summary]: ", summary.text)
-    # model_id = 'tunedModels/farmerqa-m3phv20xubea'
-
-    # model = genai.GenerativeModel(model_id)
-
-    # response = model.generate_content(text)
-    return summary.text if summary else "❌ No response from Gemini AI."
+    return summary if summary else "❌ No response from Gemini AI."
