@@ -84,7 +84,7 @@ def gemini_response(text):
     # query = "What is attention mechanism?"
     summary = rag_search.search_and_summarize(text, top_k=3)
     print(summary)
-    print("the text of the summar :",summary.text.strip())
+    # print("the text of the summar :",summary.text.strip())
     print("result")
     # print("[summary]: ", summary.text)
     # model_id = 'tunedModels/farmerqa-m3phv20xubea'
