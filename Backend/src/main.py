@@ -2,8 +2,8 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import base64
-from disease_identification import predict_disease
-from fertilizer_recomendation import recommend_fertilizer
+from Backend.src.disease_identification import predict_disease
+from Backend.src.fertilizer_recomendation import recommend_fertilizer
 import argparse
 import uvicorn
 from dotenv import load_dotenv
@@ -112,14 +112,14 @@ def health():
 
 app.mount(
     "/static",
-    StaticFiles(directory=os.path.join(resourcePath("frontend"), "static")),
+    StaticFiles(directory=os.path.join(resourcePath("Backend/src/frontend"), "static")),
     name="static",
 )
 
 
 @app.get("/{path_name:path}")
 async def catch_all(path_name: str):
-    return FileResponse(os.path.join(resourcePath("frontend"), "index.html"))
+    return FileResponse(os.path.join(resourcePath("Backend/src/frontend"), "index.html"))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
