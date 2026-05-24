@@ -13,7 +13,7 @@ import sys
 from fastapi.responses import (
     FileResponse
 )
-from LLM import gemini_response
+from Backend.src.LLM import gemini_response
 load_dotenv()
 app = FastAPI(title="ARNA Backend")
 PORT = int(os.environ.get("PORT", 8000))
