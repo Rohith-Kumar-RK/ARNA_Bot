@@ -2,8 +2,8 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import base64
-from Backend.src.disease_identification import predict_disease
-from Backend.src.fertilizer_recomendation import recommend_fertilizer
+from disease_identification import predict_disease
+from fertilizer_recomendation import recommend_fertilizer
 import argparse
 import uvicorn
 from dotenv import load_dotenv
@@ -13,7 +13,7 @@ import sys
 from fastapi.responses import (
     FileResponse
 )
-from Backend.src.LLM import gemini_response
+from LLM import gemini_response
 load_dotenv()
 app = FastAPI(title="ARNA Backend")
 PORT = int(os.environ.get("PORT", 8000))
@@ -61,6 +61,7 @@ async def analyze(file: UploadFile = File(...)):
     }
     """
     image_bytes = await file.read()
+
    
     disease,confidence=predict_disease(image_bytes)
     fertilizer=recommend_fertilizer(disease)
@@ -111,14 +112,14 @@ def health():
 
 app.mount(
     "/static",
-    StaticFiles(directory=os.path.join(resourcePath("Backend/src/frontend"), "static")),
+    StaticFiles(directory=os.path.join(resourcePath("frontend"), "static")),
     name="static",
 )
 
 
 @app.get("/{path_name:path}")
 async def catch_all(path_name: str):
-    return FileResponse(os.path.join(resourcePath("Backend/src/frontend"), "index.html"))
+    return FileResponse(os.path.join(resourcePath("frontend"), "index.html"))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

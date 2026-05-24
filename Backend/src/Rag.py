@@ -64,7 +64,7 @@ class EmbeddingPipeline:
         print(f"[INFO] Embeddings shape: {embeddings.shape}")
         return embeddings
 class FaissVectorStore:
-    def __init__(self, persist_dir: str = "../Dataset/Rag/faiss_store", embedding_model: str = "all-MiniLM-L6-v2", chunk_size: int = 50, chunk_overlap: int = 10):
+    def __init__(self, persist_dir: str = "Dataset/Rag/faiss_store", embedding_model: str = "all-MiniLM-L6-v2", chunk_size: int = 50, chunk_overlap: int = 10):
         self.persist_dir = persist_dir
         os.makedirs(self.persist_dir, exist_ok=True)
         self.index = None

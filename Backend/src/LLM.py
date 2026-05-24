@@ -1,16 +1,18 @@
 from dotenv import load_dotenv
-from Backend.src.Rag import FaissVectorStore, load_all_documents
+from Rag import FaissVectorStore, load_all_documents
 import os
 import google.generativeai as genai
 import time
 from google.api_core.exceptions import InternalServerError
 # Set up Gemini AI
-
+# BASE_DIR = os.path.dirname(
+#     os.path.abspath(__file__)
+# )
 
 class RAGSearch:
     def __init__(
         self,
-        persist_dir: str = "Backend/src/Dataset/Rag/faiss_store",
+        persist_dir: str = "Dataset/Rag/faiss_store",
         embedding_model: str = "all-MiniLM-L6-v2",
         llm_model: str = "gemma2-9b-it",
     ):
@@ -19,9 +21,10 @@ class RAGSearch:
         load_dotenv()
         faiss_path = os.path.join(persist_dir, "faiss.index")
         meta_path = os.path.join(persist_dir, "metadata.pkl")
+        print("[faiss_path]",faiss_path)
         if not (os.path.exists(faiss_path) and os.path.exists(meta_path)):
             # from data_loader import load_all_documents
-            docs = load_all_documents("Backend/src/Dataset/Rag/data")
+            docs = load_all_documents("Dataset/Rag/data")
             self.vectorstore.build_from_documents(docs)
         else:
             self.vectorstore.load()
