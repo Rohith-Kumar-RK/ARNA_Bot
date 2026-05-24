@@ -14,7 +14,7 @@ from tensorflow.keras.preprocessing.image import (
 )
 
 session = ort.InferenceSession(
-    "Models/best_model.onnx"
+    "Backend/src/Models/best_model.onnx"
 )
 
 input_name = session.get_inputs()[0].name
