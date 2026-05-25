@@ -1,12 +1,11 @@
 pandas
-numpy == 1.26.4
+numpy==1.24.3
 pytest
 langchain_community
 sentence_transformers
 python-dotenv
 pypdf
 faiss-cpu
-tensorflow-cpu==2.15.0
 joblib
 google-generativeai>=0.8.0
 fastapi
@@ -15,3 +14,4 @@ python-multipart
 Pillow
 onnxruntime
 opencv-python-headless
+tensorflow-cpu==2.13.0
