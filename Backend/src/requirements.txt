@@ -2,7 +2,6 @@ pandas
 numpy==1.24.3
 pytest
 langchain_community
-sentence_transformers
 python-dotenv
 pypdf
 faiss-cpu
@@ -15,3 +14,7 @@ Pillow
 onnxruntime
 opencv-python-headless
 tensorflow-cpu==2.13.0
+torch==2.1.2
+transformers==4.41.2
+sentence-transformers==2.7.0
+typing_extensions==4.12.2
