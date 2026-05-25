@@ -3,15 +3,15 @@ import numpy as np
 import cv2
 # import tensorflow as tf
 # from tensorflow.keras.preprocessing.image import img_to_array, load_img
-import os
-from io import BytesIO
-from PIL import Image
+# import os
+# from io import BytesIO
+# from PIL import Image
 import tensorflow as tf
 
-from tensorflow.keras.preprocessing.image import (
-    load_img,
-    img_to_array
-)
+# from tensorflow.keras.preprocessing.image import (
+#     load_img,
+#     img_to_array
+# )
 
 session = ort.InferenceSession(
     "Backend/src/Models/best_model.onnx"
