@@ -17,6 +17,7 @@ from Backend.src.LLM import gemini_response
 load_dotenv()
 app = FastAPI(title="ARNA Backend")
 PORT = int(os.environ.get("PORT", 8000))
+# const port = process.env.PORT || 4000 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -129,13 +130,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--host",
         type=str,
-        default="127.0.0.1",
+        default="0.0.0.0",
         help="Hostname to run the server on (default: 127.0.0.1)",
     )
     parser.add_argument(
         "--port",
         type=int,
-        default=8000,
+        default=PORT,
         help="Port to run the server on (default: 8000)",
     )
 

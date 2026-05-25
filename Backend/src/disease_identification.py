@@ -71,9 +71,8 @@ def preprocess_image(image_bytes):
     )
 
     # EfficientNet preprocessing
-    image = tf.keras.applications.efficientnet.preprocess_input(
-        image
-    )
+    image = image.astype("float32")
+    image = image / 127.5 - 1
 
     return image
 # -----------------------------

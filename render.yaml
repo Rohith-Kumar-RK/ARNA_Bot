@@ -2,9 +2,9 @@ services:
   - type: web
     name: arna-bot
     env: python
-    rootDir: Backend/src
-    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    rootDir: .
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r Backend/src/requirements.txt
+    startCommand: uvicorn Backend.src.main:app --host 0.0.0.0 --port $PORT
 
     envVars:
       - key: PYTHON_VERSION
