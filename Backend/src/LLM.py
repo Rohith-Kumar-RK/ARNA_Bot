@@ -8,7 +8,7 @@ from google.api_core.exceptions import InternalServerError
 # BASE_DIR = os.path.dirname(
 #     os.path.abspath(__file__)
 # )
-
+_rag_search = None
 class RAGSearch:
     def __init__(
         self,
@@ -87,8 +87,14 @@ class RAGSearch:
         return text
 
 
+def _get_rag_search():
+    global _rag_search
+    if _rag_search is None:
+        _rag_search = RAGSearch()
+    return _rag_search
+
 def gemini_response(text):
-    rag_search = RAGSearch()
+    rag_search = _get_rag_search()
     summary = rag_search.search_and_summarize(text, top_k=3)
     print(summary)
     return summary if summary else "❌ No response from Gemini AI."
