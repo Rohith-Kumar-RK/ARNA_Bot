@@ -1,7 +1,7 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import base64
+# import base64
 from Backend.src.disease_identification import predict_disease
 from Backend.src.fertilizer_recomendation import recommend_fertilizer
 import argparse
@@ -47,20 +47,7 @@ def resourcePath(relativePath):
 
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
-    """
-    Upload crop image → returns disease name + fertilizer name only.
-
-    REPLACE the dummy response below with your actual model calls:
-    
-    image_bytes = await file.read()
-    disease_result = disease_model.predict(image_bytes)
-    fertilizer = rag_pipeline.retrieve(disease_result.label)
-    return {
-        "disease": disease_result.label,
-        "confidence": disease_result.confidence,   # "High" / "Medium" / "Low"
-        "fertilizer": fertilizer.name,
-    }
-    """
+   
     image_bytes = await file.read()
 
    
@@ -88,17 +75,7 @@ class ChatRequest(BaseModel):
 
 @app.post("/chat")
 async def chat(body: ChatRequest):
-    """
-    RAG + LLM chat endpoint.
-
-    REPLACE the dummy response below with your actual RAG + LLM pipeline:
-
-    retrieved_docs = rag_pipeline.retrieve(body.message)
-    context = "\\n".join(retrieved_docs)
-    prompt = f"Disease context: {body.disease_context}\\nKnowledge: {context}\\nUser: {body.message}"
-    reply = llm.generate(prompt, history=body.history)
-    return {"reply": reply}
-    """
+   
     print(body.message)
     summary=gemini_response(body.message)
     # ── DUMMY RESPONSE — replace with your RAG + LLM output ──
@@ -111,16 +88,21 @@ async def chat(body: ChatRequest):
 def health():
     return {"status": "ok"}
 
-app.mount(
-    "/static",
-    StaticFiles(directory=os.path.join(resourcePath("Backend/src/frontend"), "static")),
-    name="static",
-)
+_frontend_dir = resourcePath("Backend/src/frontend")
+_static_dir = os.path.join(_frontend_dir, "static")
+
+# Guard the mount so the app doesn't crash on startup (e.g. on Render) if the
+# built frontend hasn't been copied into place yet.
+if os.path.isdir(_static_dir):
+    app.mount("/static", StaticFiles(directory=_static_dir), name="static")
 
 
 @app.get("/{path_name:path}")
 async def catch_all(path_name: str):
-    return FileResponse(os.path.join(resourcePath("Backend/src/frontend"), "index.html"))
+    index_path = os.path.join(_frontend_dir, "index.html")
+    if os.path.isfile(index_path):
+        return FileResponse(index_path)
+    return {"detail": "Frontend build not found. API is running at /analyze, /chat, /health."}
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

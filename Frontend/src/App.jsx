@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 
-const API = "http://localhost:8000";
+// Use a relative base URL since the FastAPI backend serves this frontend
+// itself (see the /static mount + catch_all route in main.py). This works
+// automatically in local dev, on Render, or behind any reverse proxy —
+// no hardcoded host/port that breaks in production.
+const API = "";
 
 const Spinner = () => (
   <span style={{

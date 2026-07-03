@@ -29,61 +29,75 @@ class RAGSearch:
         else:
             self.vectorstore.load()
         genai.configure(api_key=os.getenv("API_TOKEN"))
-        self.llm = genai.GenerativeModel("gemma-4-26b-a4b-it")
+        self.llm = genai.GenerativeModel("models/gemini-2.5-flash")
         print(f"[INFO] Groq LLM initialized: {llm_model}")
 
     def search_and_summarize(self, query: str, top_k: int = 5) -> str:
         results = self.vectorstore.query(query, top_k=top_k)
-        # texts = [r["metadata"].get("text", "") for r in results if r["metadata"]]
         texts = list(
             set(r["metadata"].get("text", "").strip() for r in results if r["metadata"])
         )
 
-        # texts = [r["metadata"].get("text", "") for r in results if r["metadata"]]
         context = "\n".join(texts).strip()
-        print("[context]:",context)
+        print("[context]:", context)
         if not context:
-            return "I don't know based on the provided context."
+            return "I don't know it's not my cup of tea."
 
         prompt = f"""
-        
         Context:
         {context}
 
         Question:
         {query}
 
-        
         Answer briefly using only the context.
         If answer is unavailable, say:
-        I don't know based on the provided context."""
-        response = None
+       I don't know it's not my cup of tea."""
 
+        response = None
         for attempt in range(3):
             try:
                 response = self.llm.generate_content(
                     prompt,
                     generation_config={
-                        "max_output_tokens": 50,
+                        "max_output_tokens": 256,   # 50 was too low — it was truncating mid-word
                         "temperature": 0.1
                     }
                 )
                 break
-
             except InternalServerError as e:
                 print(f"Gemini API Error: {e}")
                 time.sleep(5)
 
         if response is None:
             return "LLM service unavailable"
-        return response
+
+        # ── THE FIX: extract plain text instead of returning the raw
+        # GenerateContentResponse object, which FastAPI/pydantic cannot
+        # JSON-serialize (that's what caused the 500 error).
+        try:
+            text = response.text.strip()
+        except Exception as e:
+            print(f"[WARN] Could not extract text from Gemini response: {e}")
+            text = ""
+
+        if not text:
+            return "I don't know it's not my cup of tea."
+
+        return text
 
 
 def gemini_response(text):
     rag_search = RAGSearch()
-    # query = "What is attention mechanism?"
     summary = rag_search.search_and_summarize(text, top_k=3)
     print(summary)
-    # print("the text of the summar :",summary.text.strip())
-    print("result")
     return summary if summary else "❌ No response from Gemini AI."
+
+# def gemini_response(text):
+#     rag_search = RAGSearch()
+#     # query = "What is attention mechanism?"
+#     summary = rag_search.search_and_summarize(text, top_k=3)
+#     print(summary)
+#     # print("the text of the summar :",summary.text.strip())
+#     print("result")
+#     return summary if summary else "❌ No response from Gemini AI."
