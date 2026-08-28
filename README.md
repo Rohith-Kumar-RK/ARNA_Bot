@@ -1,4 +1,3 @@
-## This ARNA-Agricultural Real time Neural Advisor bot
 # 🌱 ARNA Bot — Agricultural Real-time Neural Advisor
 
 ARNA is an AI-powered assistant for farmers: upload a photo of a crop leaf and it detects plant disease with a CNN/ONNX model, recommends a fertilizer, and answers agriculture questions through a Gemini-powered RAG chatbot.
